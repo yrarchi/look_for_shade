@@ -1,0 +1,64 @@
+{% load static %}
+<!doctype html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <title>{{ name }}</title>
+</head>
+
+<body>
+  <h1>{{ name }}</h1>
+  もっとも暖かい経路を示します. [福岡市内限定]
+　<br>
+
+  <form action="{% url "index" %}" method="post">
+  {% csrf_token %}
+      <div class="lat_lon">
+      出発地　
+      {{ form.origin_lat.label_tag }} {{ form.origin_lat }}
+      {{ form.origin_lon.label_tag }} {{ form.origin_lon }}
+      </div>
+      <div class="lat_lon">
+      目的地　
+      {{ form.dest_lat.label_tag }} {{ form.dest_lat }}
+      {{ form.dest_lon.label_tag }} {{ form.dest_lon }}
+      </div>
+      ※ 地図上でクリックするとその場所の緯度と経度が表示されます
+      <div class="date">
+      {{ form.date.label_tag }} {{ form.date }}
+      ※ 「2019-01-01」形式で入れてください
+      </div>
+      <div class="time">
+      {{ form.time.label_tag }} {{ form.time }}
+      ※ 「13:00」形式で入れてください
+      </div>
+    <input type="submit" value="送信">
+    <input type="reset" value="リセット">
+  </form>
+
+  <div class="map">
+  {% if title == "input" %}
+    <iframe id="initial_map"
+        title="initial_map"
+        width="80%"
+        height="500"
+        src="{% static 'app_sunlight/html/index_map.html' %}", alt="初期表示の地図">
+    </iframe>
+  {% elif result == "map" %}
+    <iframe id="map"
+        title="map"
+        width="80%"
+        height="500"
+        src="{% static 'app_sunlight/html/map_result.html' %}", alt="結果の地図">
+    </iframe>
+  {% else %}
+    {{ result }}
+  {% endif %}
+  </div>
+
+※ 道路の緯度経度はOpenStreetMapのデータを利用しています
+<a href="http://www.openstreetmap.org/copyright">© OpenStreetMap contributors</a>
+
+</body>
+</html>
