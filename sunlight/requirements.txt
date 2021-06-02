@@ -33,6 +33,6 @@ Rtree==0.8.3
 Shapely==1.6.4.post2
 six==1.13.0
 sqlparse==0.3.0
-urllib3==1.25.6
+urllib3==1.26.5
 whitenoise==5.0.1
 django-heroku==0.3.1
